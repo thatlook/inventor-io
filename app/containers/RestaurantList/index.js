@@ -62,8 +62,8 @@ export class RestaurantList extends React.Component {
   //   this.props.onPageLoad();
   // }
   handleOpen = e => {
-    console.log('handle open', e.target.id);
-    console.log(this.props);
+    // console.log('handle open', e.target.id);
+    // console.log(this.props);
     //const res = undefined;
     // this.props.restaurantList.restaurants.map(restaurant => {
     //   console.log(Number(restaurant.id));
@@ -73,7 +73,7 @@ export class RestaurantList extends React.Component {
     const res = this.props.restaurantList.restaurants.filter(
       restaurant => Number(restaurant.id) === Number(e.target.id),
     )[0];
-    console.log(res);
+    // console.log(res);
     this.setState({
       modalOpen: false,
       id: Number(e.target.id),
@@ -136,10 +136,8 @@ export class RestaurantList extends React.Component {
         <Grid>
           <Grid.Column width={1} />
           <Grid.Column width={10}>
-          <br/>
-            <Header as="h1" >
-              Welcome {localStorage.getItem('username')}
-            </Header>
+            <br />
+            <Header as="h1">Welcome {localStorage.getItem('username')}</Header>
             <br />
             <Card.Group>
               {this.props.restaurantList.restaurants
@@ -269,12 +267,12 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     onPageLoad: (userId = 1) => {
-      console.log('onPageLoad', userId);
+      // console.log('onPageLoad', userId);
       dispatch(getRestaurants(userId));
     },
     onClick: e => {
       const resID = e.target.id;
-      console.log('restaruant CLICKED', resID);
+      // console.log('restaruant CLICKED', resID);
       dispatch(selectedRes(resID));
       // console.log(resID);
     },
@@ -282,7 +280,7 @@ function mapDispatchToProps(dispatch) {
       history.push('/addrestaurant');
     },
     onDelete: e => {
-      console.log('DELETE CLICKED', e);
+      // console.log('DELETE CLICKED', e);
       dispatch(deleteRestaurant(e));
     },
     onClose: e => {

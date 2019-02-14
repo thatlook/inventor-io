@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/sales', (req, res) => {
-  console.log('req.body :', req.body);
+  // console.log('req.body :', req.body);
   const { salesList } = req.body.salesList;
   const formattedData = salesList.map(sale => ({
     recipe_id: sale.recipe_id,
@@ -18,7 +18,7 @@ router.post('/sales', (req, res) => {
     quantity: sale.quantity,
     date: req.body.date,
   }));
-  console.log('HI NIK:', formattedData);
+  // console.log('HI NIK:', formattedData);
   db.insert(formattedData)
     .into('sales')
     .then(() => res.send('hi'));
@@ -31,7 +31,7 @@ router.get(
     failureRedirect: '/login',
   }),
   (req, res) => {
-    console.log('in the return function');
+    // console.log('in the return function');
     res.redirect('https://localhost:3000/restaurant');
   },
 );

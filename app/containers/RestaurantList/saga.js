@@ -22,14 +22,14 @@ export default function* restaurantListSaga() {
 }
 
 function* getList() {
-  console.log('GETTING TO SAGA');
+  // console.log('GETTING TO SAGA');
   const userInfo = yield select(makeSelectLandingPage());
   let userID;
   /* eslint-disable */
   userInfo.id
     ? (userID = userInfo.id)
     : (userID = localStorage.getItem('userId'));
-  console.log(userInfo.id);
+  // console.log(userInfo.id);
   /* eslint-enable */
   try {
     const post = {
@@ -54,15 +54,16 @@ function* getList() {
 }
 
 function* deleteRestaurant({ restaurantId }) {
-  console.log('DELETE SAGA', restaurantId);
+  // console.log('DELETE SAGA', restaurantId);
   try {
     const post = {
       url: '/api/restaurant/delete',
       method: 'post',
       data: { id: restaurantId },
     };
-    const response = yield call(axios, post);
-    console.log(response);
+    yield call(axios, post);
+    // const response = yield call(axios, post);
+    // console.log('response: ', response);
     // yield put(restaurantSuccesfullyDeleted(restaurantId));
     yield put(getRestaurants());
   } catch (err) {
@@ -71,7 +72,7 @@ function* deleteRestaurant({ restaurantId }) {
 }
 
 function* updateRestaurant({ restaurantUpdate }) {
-  console.log('UpdateRestaurant', restaurantUpdate);
+  // console.log('UpdateRestaurant', restaurantUpdate);
   // {id, name, address, phoneNumber, website} = restaurantUpdate;
   try {
     const post = {
@@ -85,11 +86,12 @@ function* updateRestaurant({ restaurantUpdate }) {
         website: restaurantUpdate.website,
       },
     };
-    const response = yield call(axios, post);
+    yield call(axios, post);
+    // const response = yield call(axios, post);
     yield put(getRestaurants());
-    console.log('update response recieved', response);
+    // console.log('update response recieved', response);
   } catch (err) {
-    throw err;
+    console.error(err);
   }
 }
 // Individual exports for testing

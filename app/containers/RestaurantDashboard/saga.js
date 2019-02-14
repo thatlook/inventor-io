@@ -14,7 +14,7 @@ import {
 function* getRestaurantInfo() {
   // console.log('inside saga for select restaurant');
   const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
-  // console.log(selectedRestaurant);
+  console.log('>>> selected restaruant:', selectedRestaurant);
   try {
     const post = {
       url: '/api/restaurant/getit',
@@ -23,7 +23,7 @@ function* getRestaurantInfo() {
     };
 
     const restaurantQuery = yield call(axios, post);
-    console.table('RESTAURANT QUERY', restaurantQuery);
+    // console.table('RESTAURANT QUERY', restaurantQuery);
     const sales = restaurantQuery.data.daySales;
     const costs = getRestaurantCosts(restaurantQuery.data.salesInfo);
 
@@ -35,8 +35,8 @@ function* getRestaurantInfo() {
       salesAndRevenue,
     });
   } catch (e) {
-    // console.error(e);
-    throw e;
+    console.error(e);
+    // throw e;
   }
 }
 

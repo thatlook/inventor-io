@@ -25,7 +25,7 @@ function* fetchOrder() {
     const result = yield call(axios, options);
     yield put(passOrders(result.data));
   } catch (e) {
-    // console.log(e);
+    console.log(e);
   }
 }
 
