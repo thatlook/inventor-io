@@ -4,11 +4,13 @@ require('dotenv').config();
 const db = require('knex')(require('../knexfile').development);
 
 router.post('/list', (req, res) => {
-  console.log(req.body);
-  getRestaurants(req.body.userId).then(response => {
-    // console.log(response);
-    res.status(200).send(response);
-  });
+  // console.log(req.body);
+  getRestaurants(req.body.userId)
+    .then(response => {
+      // console.log(response);
+      res.status(200).send(response);
+    })
+    .catch(err => console.error(err));
 });
 
 router.post('/create', (req, res) => {
@@ -26,10 +28,10 @@ router.post('/create', (req, res) => {
 });
 
 router.post('/delete', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   deleteRestaurant(req.body.id)
-    .then(response => {
-      console.log(response);
+    .then(() => {
+      // console.log(response);
       res.status(201).end('hi');
     })
     .catch(err => {
@@ -38,7 +40,7 @@ router.post('/delete', (req, res) => {
 });
 
 router.post('/update', (req, res) => {
-  console.log('UPDATE', req.body);
+  // console.log('UPDATE', req.body);
   // {restaurantId, name, address, phoneNumber, website} = req.body;
   updateRestaurant(
     req.body.restaurantId,
@@ -46,14 +48,16 @@ router.post('/update', (req, res) => {
     req.body.address,
     req.body.phoneNumber,
     req.body.website,
-  ).then(response => {
-    console.log(response);
-    res.status(201).end('done');
-  });
+  )
+    .then(() => {
+      // console.log(response);
+      res.status(201).end('done');
+    })
+    .catch(err => console.error(err));
 });
 
 router.post('/getit', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const restaurantID = req.body.selectedRestaurant;
 
   // Object.keys(req.body)[0] ||
@@ -80,31 +84,33 @@ router.post('/getit', (req, res) => {
   //   console.log(response[0]);
   //   // res.status(201).json(response);
   // });
-  restaurantOrders(restaurantID).then(orders => {
-    Object.assign(restaurantInfo, { orders });
-    restaurantSales(restaurantID).then(sales => {
-      Object.assign(restaurantInfo, { sales });
-      restaurantRecipes(restaurantID).then(recipes => {
-        Object.assign(restaurantInfo, { recipes });
-        recipeInventory(restaurantID).then(resInv => {
-          Object.assign(restaurantInfo, { resInv });
-          getSalesData(restaurantID).then(salesInfo => {
-            Object.assign(restaurantInfo, { salesInfo: salesInfo.rows });
-            getSalesByDay(restaurantID).then(daySales => {
-              Object.assign(restaurantInfo, { daySales: daySales.rows });
-              getInventoryData(restaurantID).then(inventoryData => {
-                Object.assign(restaurantInfo, {
-                  inventoryData: inventoryData.rows,
+  restaurantOrders(restaurantID)
+    .then(orders => {
+      Object.assign(restaurantInfo, { orders });
+      restaurantSales(restaurantID).then(sales => {
+        Object.assign(restaurantInfo, { sales });
+        restaurantRecipes(restaurantID).then(recipes => {
+          Object.assign(restaurantInfo, { recipes });
+          recipeInventory(restaurantID).then(resInv => {
+            Object.assign(restaurantInfo, { resInv });
+            getSalesData(restaurantID).then(salesInfo => {
+              Object.assign(restaurantInfo, { salesInfo: salesInfo.rows });
+              getSalesByDay(restaurantID).then(daySales => {
+                Object.assign(restaurantInfo, { daySales: daySales.rows });
+                getInventoryData(restaurantID).then(inventoryData => {
+                  Object.assign(restaurantInfo, {
+                    inventoryData: inventoryData.rows,
+                  });
+                  // console.log(restaurantInfo);
+                  res.status(201).json(restaurantInfo);
                 });
-                console.log(restaurantInfo);
-                res.status(201).json(restaurantInfo);
               });
             });
           });
         });
       });
-    });
-  });
+    })
+    .catch(err => console.error(err));
 });
 
 // recInv => {

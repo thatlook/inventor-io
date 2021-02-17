@@ -48,12 +48,14 @@ export function getRestaurantCosts(salesInfo) {
 
 export function combineRevenueAndSales(costs, sales) {
   sales.map(sale => {
-    // console.log(ingredient);
     const currentDate = moment(sale.date).format('MM/DD/YYYY');
     const recipeName = sale.recipe_name;
     // if (!date[currentDate]) {
     //   date[currentDate] = {};
     // }
+    if (!costs[currentDate]) {
+      costs[currentDate] = {};
+    }
     costs[currentDate][`${recipeName}_revenue`] = sale.sum;
   });
 

@@ -12,8 +12,9 @@ function* login() {
       url: '/api/auth/login/facebook',
       method: 'get',
     };
-    const response = yield call(axios, get);
-    console.log(response);
+    yield call(axios, get);
+    // const response = yield call(axios, get);
+    // console.log(response);
   } catch (e) {
     yield console.error(e);
   }

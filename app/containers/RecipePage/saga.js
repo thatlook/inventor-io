@@ -45,15 +45,16 @@ function* getRecs() {
       url: `/api/recipe/get?restaurant=${selectedRestaurant}`,
       method: 'get',
     };
-    console.log(`Sending GET to${get.url}`);
+    // console.log(`Sending GET to${get.url}`);
     const response = yield call(axios, get);
     const recipeList = response.data;
-    console.log('Response:', recipeList);
+    // console.log('Response:', recipeList);
     yield put({
       type: UPDATE_RECIPELIST,
       recipeList,
     });
   } catch (err) {
-    throw err;
+    // throw err;
+    console.error(err);
   }
 }

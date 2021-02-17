@@ -104,7 +104,9 @@ export class RestaurantDashboard extends React.Component {
                           stroke={randomColor}
                         />
                       );
-                      console.log(key);
+                      {
+                        /* console.log(key); */
+                      }
                     }
                   })
                 : null}
@@ -173,7 +175,7 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     onLoad: () => dispatch(loadInformation()),
     clickHandler: e => {
-      console.log(e.value);
+      // console.log(e.value);
     },
   };
 }

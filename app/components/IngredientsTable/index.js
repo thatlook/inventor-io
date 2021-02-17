@@ -24,7 +24,7 @@ class IngredientsTable extends React.PureComponent {
             <Table.Row>
               <Table.HeaderCell width="6">Ingredient</Table.HeaderCell>
               <Table.HeaderCell width="2">NDBNO</Table.HeaderCell>
-              <Table.HeaderCell width="4">Quantity</Table.HeaderCell>
+              <Table.HeaderCell width="4">Measurement</Table.HeaderCell>
               <Table.HeaderCell width="2" />
             </Table.Row>
           </Table.Header>
